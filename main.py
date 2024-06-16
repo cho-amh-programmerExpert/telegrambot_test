@@ -65,7 +65,7 @@ def send_file(update: Update, context: CallbackContext) -> None:
     chat_id = update.message.chat_id
     try:
         with open("ctg.jpg", 'rb') as f:
-            update.message.reply_photo(chat_id=chat_id)
+            update.message.reply_photo(f)
 
     except FileNotFoundError:
         update.message.reply_text('File not found.')
