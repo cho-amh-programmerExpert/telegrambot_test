@@ -87,7 +87,7 @@ def main() -> None:
 
     # Start the Bot
     updater.start_polling()
-    #updater.idle()
+    updater.idle()
 
 if __name__ == '__main__':
     main()
