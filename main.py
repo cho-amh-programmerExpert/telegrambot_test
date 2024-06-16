@@ -61,7 +61,7 @@ def send_file(update: Update, context: CallbackContext) -> None:
         file_path = context.args[0] # Selecting the first parameter passed to the function
         try:
             with open(file_path, 'rb') as f:
-                context.bot.send_document(f)
+                context.bot.send_document(document=f)
 
         except FileNotFoundError:
             update.message.reply_text('File not found.')
