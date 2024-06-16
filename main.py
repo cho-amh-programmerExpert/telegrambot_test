@@ -59,9 +59,10 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 def send_file(update: Update, context: CallbackContext) -> None:
     if context.args:
         file_path = context.args[0] # Selecting the first parameter passed to the function
+        chat_id = update.message.chat_id
         try:
             with open(file_path, 'rb') as f:
-                context.bot.send_document(document=f)
+                context.bot.send_document(document=f, chat_id=chat_id)
 
         except FileNotFoundError:
             update.message.reply_text('File not found.')
