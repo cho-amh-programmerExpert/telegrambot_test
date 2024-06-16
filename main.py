@@ -9,8 +9,6 @@ intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Token
-TOKEN = "MTI1MTkyMTA2NzcwNzIwNzcwMQ.G4Dpm7.r1XFgegpLM6gYme3MDcBWWLiArYHu9gyi3KvEs"
 
 # Define the choices for the action argument
 action_choices = [
@@ -101,4 +99,4 @@ async def on_ready():
     print(f'Logged in as {bot.user}!')
 
 # Run the bot
-bot.run("MTI1MTkyMTA2NzcwNzIwNzcwMQ.G4Dpm7.r1XFgegpLM6gYme3MDcBWWLiArYHu9gyi3KvEs")
+bot.run("MTI1MTkyMTA2NzcwNzIwNzcwMQ.G5j_9f.rSJ_HPM7PGakWS30CeeDo4XF0JcMg_uNUAj3Gw")
