@@ -1,2 +1,2 @@
 streamlit
-discord.py
+python-telegram-bot==13.13
