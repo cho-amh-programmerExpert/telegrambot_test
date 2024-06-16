@@ -40,8 +40,8 @@ def kick_user(update: Update, context: CallbackContext) -> None:
 
 def ban_user(update: Update, context: CallbackContext) -> None:
     if update.message.reply_to_message:
-        #user_to_ban = context.args[0]
-        user_to_ban = update.message.reply_to_message.from_user.id
+        user_to_ban = context.args[0]
+        #user_to_ban = update.message.reply_to_message.from_user.id
         chat_id = update.message.chat_id
         try:
             # context.bot.ban_chat_member(chat_id, user_to_ban)
