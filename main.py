@@ -54,7 +54,7 @@ def ban_user(update: Update, context: CallbackContext) -> None:
 
 def handle_message(update: Update, context: CallbackContext) -> None:
     text = update.message.text
-    update.message.reply_text(f'You said: {text}')
+    update.message.reply_text(f'your msg')
 
 def send_file(update: Update, context: CallbackContext) -> None:
     if context.args:
