@@ -85,8 +85,8 @@ def sendpic(update: Update, context:CallbackContext) -> None:
     pic_id = context.args[0]
     
     picid_pics = {
-        "1": "1.png",
-        "2": "2.png"
+        "1": "1.jpg",
+        "2": "2.jpg"
     }
     
     try:
