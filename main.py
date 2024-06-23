@@ -94,8 +94,8 @@ def sendpic(update: Update, context:CallbackContext) -> None:
     
         pic = open(path, "rb").read()
         update.message.reply_picture(chat_id=update.message.chat_id,  picture=pic)
-    except:
-        update.message.reply_text(f"Please provide a valid picture id /n {picid_pics.keys()}")
+    except Exception as e:
+        update.message.reply_text(f"Please provide a valid picture id ▪︎▪︎ {list(picid_pics.keys())} ▪︎▪︎ {e}")
 
 def main() -> None:
     updater = Updater(TOKEN)
