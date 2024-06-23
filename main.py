@@ -82,7 +82,7 @@ def poll(update: Update, context: CallbackContext) -> None:
     context.bot.send_poll(chat_id=chat_id, question="The modern government of Iran is ****y, right?", options=["Yes", "No"], allows_multiple_answers=False)
 
 def sendpic(update: Update, context:CallbackContext) -> None:
-    pic_id = content.args[0]
+    pic_id = context.args[0]
     
     picid_pics = {
         "1": "1.png",
