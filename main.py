@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-TOKEN = open("./token.txt")
+TOKEN = open("./token.txt", "r").read()
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Hello! I am the glorious leader of Persia.')
