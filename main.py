@@ -93,7 +93,7 @@ def sendpic(update: Update, context:CallbackContext) -> None:
         path = picid_pics[str(pic_id)]
     
         pic = open(path, "rb").read()
-        update.message.reply_picture(chat_id=update.message.chat_id,  picture=pic)
+        update.message.reply_photo(chat_id=update.message.chat_id,  picture=pic)
     except Exception as e:
         update.message.reply_text(f"Please provide a valid picture id ▪︎▪︎ {list(picid_pics.keys())} ▪︎▪︎ {e}")
 
