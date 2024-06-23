@@ -8,6 +8,7 @@ from telegram.ext import (
     CallbackContext,
 )
 from telegram.error import BadRequest
+import os
 
 # Enable logging
 logging.basicConfig(
@@ -16,16 +17,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-TOKEN = '7101527978:AAF2Z0ayxQb8g6oDeDurXMsB0ekTggQAjfE'
+TOKEN = os.getenv("TELEGRAM_API_KEY")
 
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Hello my friend!')
+    update.message.reply_text('Hello! I am the glorious leader of Persia.')
     # args = chat_id={update.message.chat_id}, {SOMETHING}={TO_SEND}
     # update.message.reply_{SOMETHING}({args}) -> To reply "SOMETHING" to the sent message
     # context.bot.send_{SOMETHING}({args}) -> To send "SOMETHING"
-
-def help(update:Update, context: CallbackContext):
-    context.bot.send_message(text="/send_cyrus >>> To send the picture of cyrus the grreat!", chat_id=update.message.chat_id)
+    # update.message.delete() -> To delete the message that was sent.
+    
+def help_command(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("Click on the \"Slash\" button to see the commands available ☆ Also the bot reacts so some messages.")
 
 def kick_user(update: Update, context: CallbackContext) -> None:
     if update.message.reply_to_message:
@@ -53,24 +55,47 @@ def ban_user(update: Update, context: CallbackContext) -> None:
 
 def handle_message(update: Update, context: CallbackContext) -> None:
     text = update.message.text
-    if "cyrus" in text.lower():
-        update.message.reply_text("Good to know that you're talking about me.")
-    
-    if "china" in text.lower():
-        update.message.delete()
-        context.bot.send_message(chat_id=update.message.chat_id, text="NEVER SAY THE WORD 'CHINA' AGAIN!")
+    target_words = {
+        "china": "Don't say that word ever again!",
+        "🇨🇳": "AntiChina triggered!",
+        "soviet": "Long Live Soviet!! Союз нерушимый республик свободных - Сплотила навеки Великая Русь - Да здравствует созданный волей народов - Единый, могучий Советский Союз!",
+        "☠️": "I also agree! ☠️",
+        "hey cyrus": "Yes commando?",
+        "hi cyrus": "Hello soldier! Wanna be recruited as a higher rank position? .... Jk",
+        "hello cyrus": "Hello soldier! How was the training?",
+        "good": "That's good to hear! Glad thats true.",
+        "bad":"Oh no soldier! Medical Group (Helpers Group)!!! help him asap!"
+    }
+    triggers = target_words.keys()
+    found = False
+    found_word = ""
+    for tri in triggers:
+        if tri in text.lower():
+            found = True
+            found_word = tri
+            break
+    if found:
+        update.message.reply_text(target_words[found_word])
 
-def send_file(update: Update, context: CallbackContext) -> None:
-
+def poll(update: Update, context: CallbackContext) -> None:
     chat_id = update.message.chat_id
-    try:
-        with open("ctg.jpg", 'rb') as f:
-            update.message.reply_photo(f)
+    context.bot.send_poll(chat_id=chat_id, question="The modern government of Iran is ****y, right?", options=["Yes", "No"], allows_multiple_answers=False)
 
-    except FileNotFoundError:
-        update.message.reply_text('File not found.')
-    except Exception as e:
-        update.message.reply_text(f'Error: {e}')
+def sendpic(update: Update, context:CallbackContext) -> None:
+    pic_id = content.args[0]
+    
+    picid_pics = {
+        "1": "1.png",
+        "2": "2.png"
+    }
+    
+    try:
+        path = picid_pics[str(pic_id)]
+    
+        pic = open(path, "rb").read()
+        update.message.reply_picture(chat_id=update.message.chat_id,  picture=pic)
+    except:
+        update.message.reply_text(f"Please provide a valid picture id /n {picid_pics.keys()}")
 
 def main() -> None:
     updater = Updater(TOKEN)
@@ -79,10 +104,11 @@ def main() -> None:
 
     # Register commands
     dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("kick", kick_user))
     dispatcher.add_handler(CommandHandler("ban", ban_user))
-    dispatcher.add_handler(CommandHandler("sendcyrus", send_file))
-    dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(CommandHandler("askpoll", poll))
+    dispatcher.add_handler(CommandHandler("sendpic", sendpic))
 
     # Register message handler
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
