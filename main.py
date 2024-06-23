@@ -76,6 +76,10 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             break
     if found:
         update.message.reply_text(target_words[found_word])
+        
+    if "i wanna... you know" in text.lower():
+        update.message.reply_photo(open("1.jpg", "rb").read())
+        update.message.reply_photo(open("2.jpg", "rb").read())
 
 def poll(update: Update, context: CallbackContext) -> None:
     chat_id = update.message.chat_id
@@ -95,7 +99,7 @@ def sendpic(update: Update, context:CallbackContext) -> None:
         pic = open(path, "rb").read()
         update.message.reply_photo(pic)
     except Exception as e:
-        update.message.reply_text(f"Please provide a valid picture id ▪︎▪︎ {list(picid_pics.keys())} ▪︎▪︎ {e}")
+        update.message.reply_text(f"Please provide a valid picture id!")
 
 def main() -> None:
     updater = Updater(TOKEN)
